@@ -1,0 +1,89 @@
+{
+    "env": "FrankaCabinetDefault-v0",
+    "dimensions": [
+      {
+        "name": "joint1-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint2-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint3-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint4-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint5-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint6-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint7-frictionloss",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint1-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint2-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint3-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint4-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint5-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint6-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      },
+      {
+        "name": "joint7-damping",
+        "default": 0.01,
+        "multiplier_min": 1.0,
+        "multiplier_max": 1.0
+      }
+    ]
+}

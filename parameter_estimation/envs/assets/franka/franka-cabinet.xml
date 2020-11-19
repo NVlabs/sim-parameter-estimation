@@ -1,0 +1,266 @@
+<mujoco model='franka-cabinet'>
+
+    <option gravity='0 0 0'/>
+    <option>
+        <flag sensornoise='enable'/>
+    </option>
+    <default>
+         <geom margin='0.001' solref='0.002 1' solimp='0.8 0.8 0.1'/>
+    </default>
+
+    <compiler inertiafromgeom='true' angle='radian' meshdir="meshes/"/>
+
+
+    <option timestep="0.002" iterations="200" noslip_iterations="200"/>
+    <!-- <option iterations='20' noslip_iterations='20'/> -->
+    <!--<size njmax="500" nconmax="100" nstack="600000" nuser_body="9" nuser_jnt="1" nuser_site="1" -->
+    <!--    nuser_tendon="1" nuser_actuator="16" nuser_sensor="1" /> -->
+    <size njmax="500" nconmax="100" nstack="600000" />
+    <default>
+        <!-- <joint limited='true' damping='1' armature='0' axis='0 0 1' type='hinge'/> -->
+        <!-- <geom contype='1' conaffinity='1' condim='1' rgba='0.8 0.6 .4 1'
+            margin="0.001" solref=".02 1" solimp=".8 .8 .01" material="geom"/> -->
+        <!-- <motor ctrlrange='-1.0 1.0' ctrllimited='true'/> -->
+
+        <joint limited="true" margin="0.001" armature="0.1" damping="0.1" frictionloss="0.1" />
+        <geom friction="1 0.5 0.01" margin="0.0005" />
+        <site size="0.005 0 0" rgba="0.4 0.9 0.4 1" />
+        <!-- <tendon limited="true" /> -->
+        <general ctrllimited="true" ctrlrange="-1 1"
+            user="0 1 0.03 0.0939711 0.513477 0.0358776 1.23598 8.40409 0.485031 6.04244 1.02187 0.175297 0.121642 0 0 0" />
+
+        <!-- <default class='collision'>
+            <geom contype='0' conaffinity='0' type='mesh' />
+        </default> -->
+        <!-- <default class='visual'>
+            <geom contype='1' conaffinity='1' type='mesh' euler='1.57079 0.0 0.0'/>
+        </default> -->
+        <default class='visual'>
+            <geom type='mesh' euler='1.57079 0.0 0.0'/>
+        </default>
+    </default>
+
+    <visual>
+        <global offwidth="3024" offheight="1680" />
+        <quality shadowsize="4096" offsamples="8" />
+        <map force="0.1" fogend="5" />
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" width="128" height="128" rgb1=".4 .6 .8"
+            rgb2="0 0 0"/>
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278"
+            rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2"
+            width="512" height="512"/>
+
+        <material name='MatPlane' reflectance='0.3' texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <material name='geom' texture="texgeom" texuniform="true"/>
+
+        <mesh name="viz_finger" file="franka/finger.stl"/>
+        <mesh name="viz_hand"   file="franka/hand.stl"/>
+        <mesh name="viz_link0"  file="franka/link0.stl"/>
+        <mesh name="viz_link1"  file="franka/link1.stl"/>
+        <mesh name="viz_link2"  file="franka/link2.stl"/>
+        <mesh name="viz_link3"  file="franka/link3.stl"/>
+        <mesh name="viz_link4"  file="franka/link4.stl"/>
+        <mesh name="viz_link5"  file="franka/link5.stl"/>
+        <mesh name="viz_link6"  file="franka/link6.stl"/>
+        <mesh name="viz_link7"  file="franka/link7.stl"/>
+    </asset>
+
+    <equality>
+        <!-- Links default hand grippers together -->
+        <joint name='finger2' joint1='finger1' joint2='finger2' polycoef="0 -1 0 0 0" />
+    </equality>
+    
+    <equality>
+        <weld body1="franka:mocap" body2="hand" solimp="0.9 0.95 0.001" solref="0.02 1"></weld>
+    </equality>
+    
+    <actuator>
+        <!--
+        <motor name='joint1' gear='127' joint='joint1' />
+        <motor name='joint2' gear='127' joint='joint2' />
+        <motor name='joint3' gear='127' joint='joint3' />
+        <motor name='joint4' gear='127' joint='joint4' />
+        <motor name='joint5' gear='67' joint='joint5' />
+        <motor name='joint6' gear='12' joint='joint6' />
+        <motor name='joint7' gear='12' joint='joint7' />
+        <motor name='finger' gear='102' joint='finger1' />
+        -->
+        <velocity name='joint1' ctrlrange='-2 2' kv='10'  joint='joint1' />
+        <velocity name='joint2' ctrlrange='-2 2' kv='10'  joint='joint2' />
+        <velocity name='joint3' ctrlrange='-2 2' kv='10'  joint='joint3' />
+        <velocity name='joint4' ctrlrange='-2 2' kv='10'  joint='joint4' />
+        <velocity name='joint5' ctrlrange='-2 2' kv='10' joint='joint5' />
+        <velocity name='joint6' ctrlrange='-2 2' kv='10' joint='joint6' />
+        <velocity name='joint7' ctrlrange='-2 2' kv='10' joint='joint7' />
+        <velocity name='finger' ctrlrange='-2 2' kv='10' joint='finger2' />
+
+    </actuator>
+    <asset>
+        <mesh name='sektion_frame' file='sektion_cabinet/sektion.stl'/>
+        <mesh name='drawer' file='sektion_cabinet/drawer.stl'/>
+        <mesh name='drawer_handle' file='sektion_cabinet/drawer_handle.stl' />
+
+        <mesh name='door_right' file='sektion_cabinet/door_right.stl' />
+        <mesh name='door_right_nob' file='sektion_cabinet/door_right_nob.stl' />
+
+        <mesh name='door_left' file='sektion_cabinet/door_left.stl' />
+        <mesh name='door_left_nob' file='sektion_cabinet/door_left_nob.stl' />
+    </asset>
+    
+    <worldbody>
+        <!-- Floor -->
+        <geom name='floor' pos='0 0 0' size='2 2 .01' type='plane' material="MatPlane" contype='4'/>
+        <!-- Lighting -->
+        <light directional='true' diffuse='.7 .7 .7' specular='0.03 0.03 0.03' pos='-1 -1.0 4.0' dir='1 1.0 -4'/>
+
+        <!-- Robot -->
+        <body name="robot" pos="0.1 0.5 0">
+            <body name='link0' pos='0 0 0'>
+                <geom name='vlink0' mesh='viz_link0' class='visual'/>
+                <body name='link1' pos='0 0 0.333'>
+                    <joint name='joint1' pos='0 0 -0.333' range='-2.8973 2.8973'  />
+                    <geom name='vlink1' mesh='viz_link1' class='visual'/>
+                    <body name='link2' pos='0 0 0' euler='-1.5707 0 0' >
+                        <joint name='joint2' pos='0 0 0' range='-1.7628 1.7628'  />
+                        <geom name='vlink2' mesh='viz_link2' class='visual'/>
+                        <body name='link3' pos='0 -0.316 0' euler='1.5707 0 0' >
+                            <joint name='joint3' pos='0 0 -0.12' range='-2.8973 2.8973' />
+                            <geom name='vlink3' mesh='viz_link3' class='visual'/>
+                            <body name='link4' pos='0.0825 0 0' euler='1.5707 0 0' >
+                                <joint name='joint4' pos='0 0 0' range='-3.0718 -0.0698' />
+                                <geom name='vlink4' mesh='viz_link4' class='visual'/>
+                                <body name='link5' pos='-0.0825 0.384 0' euler='-1.5707 0 0' >
+                                    <joint name='joint5' pos='0 0 -0.26' range='-2.8973 2.9873' />
+                                    <geom name='vlink5' mesh='viz_link5' class='visual'/>
+                                    <body name='link6' pos='0 0 0' euler='1.5707 0 0' >
+                                        <joint name='joint6' pos='0 0 0' range='-0.0175 3.7525' />
+                                        <geom name='vlink6' mesh='viz_link6' class='visual'/>
+                                        <body name='link7' pos='0.088 0 0' euler='1.5707 0 0' >
+                                            <joint name='joint7' pos='0 0 0' range='-2.8973 2.9873' />
+                                            <geom name='vlink7' mesh='viz_link7' class='visual'/>
+                                            <!-- Hand Start-->
+                                            <body name='hand' pos='0 0 0.107' euler='0 0 0' >
+                                                <site name='grasp' pos='0 0 0.08' size='0.01' rgba='0 1 0 0.125'/>
+                                                <geom name='vhand' mesh='viz_hand' class='visual'/>
+                                                <body name='finger1' pos='0 0 0.0584' euler='0 0 0' >
+                                                    <joint name='finger1' type='slide'
+                                                            axis='0 1 0' pos='0 0 0' range='0.0 0.03' />
+                                                    <geom name='vf1' mesh='viz_finger' class='visual'/>
+                                                </body>
+                                                <body name='finger2' pos='0 0 0.0584' euler='0 0 -3.1415' >
+                                                    <joint name='finger2' type='slide'
+                                                            axis='0 -1 0' pos='0 0 0' range='-0.03 0' />
+                                                    <geom name='vf2' mesh='viz_finger' class='visual'/>
+                                                </body>
+                                            </body>
+                                            <!-- Hand End -->
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+        <body mocap="true" name="franka:mocap" pos="0 0 0">
+            <geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0.7" size="0.005 0.005 0.005" type="box"></geom>
+            <geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0.1" size="1 0.005 0.005" type="box"></geom>
+            <geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0.1" size="0.005 1 0.001" type="box"></geom>
+            <geom conaffinity="0" contype="0" pos="0 0 0" rgba="0 0.5 0 0.1" size="0.005 0.005 1" type="box"></geom>
+	    </body>
+        <!-- <include file="franka.xml"/> -->
+
+        <body name='sektion_frame' pos='0.9 0.0 0.4' euler='0 0 3.1415'>
+            <geom mesh='sektion_frame' type='mesh' contype='1' conaffinity='0'/>
+
+            <body name='drawer_top' pos='0.0515 0 0.3172'>
+                <joint name='drawer_top' type='slide' axis='1 0 0' range='-0.01 0.4' frictionloss='0.1' armature='0.01'/>
+                <geom mesh='drawer' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/>
+            </body>
+
+            <body name='drawer_bottom' pos='0.0515 0 0.18795'>
+                <joint name='drawer_bottom' type='slide' axis='1 0 0' range='-0.01 0.5' frictionloss='1'/>
+                <geom mesh='drawer' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+            <body name='door_right' pos='0.3162 0.3757 -0.12973'>
+                <joint name='door_right' type='hinge' axis='0 0 1' range='-0.01 1.5'/>
+                <geom mesh='door_right'  pos='0  -0.184706  0' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <!-- <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/> -->
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+            <body name='door_left' pos='0.3162 -0.3757 -0.12973'>
+                <joint name='door_left' type='hinge' axis='0 0 1' range='-1.5 0.0'/>
+                <geom mesh='door_left'  pos='0  0.184706  0' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='door_left_nob' pos='0  0.184706  0' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <!-- <geom mesh='drawer_handle' type='mesh' mass='0.001'
+                                    pos='0 0 -0.3172' euler='0 0 0' contype='1' conaffinity='0'/> -->
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0 0.35 0.18' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+
+        </body>
+
+        <!-- <body name='Door' pos='0.9 0.2 0.31' euler='0 0 0'>
+            <inertial pos='0 0 0' mass='0.2' />
+            <joint name='hinge' pos='0 0.3 0' axis='1 0 0' type='slide' range='-0.5 0' frictionloss='1'/>
+            <geom name='box' type='cylinder' size='0.2 0.01 0.01' euler='0 1.57 0'/>
+            <geom name='handle' type='box' size='0.01 0.1 0.01' pos='-0.1 0.0 0.0'/>
+            <site name='Handle' pos='-0.1 0.0 0.0' size='0.07' rgba='0 1 0 0.125'/>
+        </body> -->
+
+        <!-- cabinet -->
+        <!-- <body name='cabinet' pos='0.9 0.2 0.3' euler='0 0 3.1415'>
+            <include file='sektion-cabinet.xml' />
+        </body> -->
+
+
+    </worldbody>
+
+
+
+    <sensor>
+
+        <jointpos name='joint1' joint='joint1' />
+        <jointpos name='joint2' joint='joint2' />
+        <jointpos name='joint3' joint='joint3' />
+        <jointpos name='joint4' joint='joint4' />
+        <jointpos name='joint5' joint='joint5' />
+        <jointpos name='joint6' joint='joint6' />
+        <jointpos name='joint7' joint='joint7' />
+        <jointpos name='finger1' joint='finger1'/>
+        <jointpos name='finger2' joint='finger2'/>
+
+        <jointvel name='vjoint1' joint='joint1' />
+        <jointvel name='vjoint2' joint='joint2' />
+        <jointvel name='vjoint3' joint='joint3' />
+        <jointvel name='vjoint4' joint='joint4' />
+        <jointvel name='vjoint5' joint='joint5' />
+        <jointvel name='vjoint6' joint='joint6' />
+        <jointvel name='vjoint7' joint='joint7' />
+        <jointvel name='vfinger1' joint='finger1'/>
+        <jointvel name='vfinger2' joint='finger2'/>
+
+
+        <!-- <framequat name='gripper_rot' objtype='site' objname='grasp' />
+        <framepos name='gripper_pos' objtype='site' objname='grasp' /> -->
+        <framepos name='handle_pos' objtype='site' objname='Handle' />
+        <framequat name='handle_quat' objtype='site' objname='Handle' />
+
+    </sensor>
+
+</mujoco>

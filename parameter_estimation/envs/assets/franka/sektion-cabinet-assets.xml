@@ -1,0 +1,15 @@
+<mujocoinclude>
+
+    <asset>
+        <mesh name='sektion_frame' file='sektion_cabinet/sektion.stl'/>
+        <mesh name='drawer' file='sektion_cabinet/drawer.stl'/>
+        <mesh name='drawer_handle' file='sektion_cabinet/drawer_handle.stl' />
+
+        <mesh name='door_right' file='sektion_cabinet/door_right.stl' />
+        <mesh name='door_right_nob' file='sektion_cabinet/door_right_nob.stl' />
+
+        <mesh name='door_left' file='sektion_cabinet/door_left.stl' />
+        <mesh name='door_left_nob' file='sektion_cabinet/door_left_nob.stl' />
+    </asset>
+
+</mujocoinclude>

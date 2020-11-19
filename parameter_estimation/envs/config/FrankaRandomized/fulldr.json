@@ -1,0 +1,89 @@
+{
+  "env": "FrankaCabinetRandomized-v0",
+  "dimensions": [
+    {
+      "name": "joint1-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint2-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint3-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint4-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint5-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint6-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint7-frictionloss",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint1-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint2-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint3-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint4-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint5-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint6-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "joint7-damping",
+      "default": 0.01,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "env": "HalfCheetahJointsRandomized-v0",
+  "dimensions": [
+    {
+      "name": "bthigh_damping",
+      "type": "damping",
+      "default": 6,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bshin_damping",
+      "type": "damping",
+      "default": 4.5,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bfoot_damping",
+      "type":  "damping",
+      "default": 3,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fthigh_damping",
+      "type": "damping",
+      "default": 4.5,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fshin_damping",
+      "type": "damping",
+      "default": 3,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "ffoot_damping",
+      "type":  "damping",
+      "default": 1.5,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bthigh_stiffness",
+      "type": "stiffness",
+      "default": 240,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bshin_stiffness",
+      "type": "stiffness",
+      "default": 180,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bfoot_stiffness",
+      "type":  "stiffness",
+      "default": 120,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fthigh_stiffness",
+      "type": "stiffness",
+      "default": 180,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fshin_stiffness",
+      "type": "stiffness",
+      "default": 120,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "ffoot_stiffness",
+      "type":  "stiffness",
+      "default": 60,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bthigh_gear",
+      "type": "gear",
+      "default": 120,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bshin_gear",
+      "type": "gear",
+      "default": 90,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "bfoot_gear",
+      "type":  "gear",
+      "default": 60,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fthigh_gear",
+      "type": "gear",
+      "default": 120,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "fshin_gear",
+      "type": "gear",
+      "default": 60,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    },
+    {
+      "name": "ffoot_gear",
+      "type":  "gear",
+      "default": 30,
+      "multiplier_min": 0.5,
+      "multiplier_max": 1.5
+    }
+  ],
+  "joints": [
+    "bthigh",
+    "bshin",
+    "bfoot",
+    "fthigh",
+    "fshin",
+    "ffoot"
+  ]
+}
