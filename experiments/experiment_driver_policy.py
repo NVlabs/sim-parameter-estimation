@@ -7,7 +7,6 @@
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
 
-
 import matplotlib
 matplotlib.use('Agg')
 
@@ -26,6 +25,8 @@ from parameter_estimation.envs.randomized_vecenv import make_vec_envs
 from experiments.args import get_args
 from experiments.estimator_helper import get_estimator
 
+from policy.ddpg import DDPG
+
 def run_experiment(args):
     reshow_hyperparameters(args, paths={})
 
@@ -40,13 +41,28 @@ def run_experiment(args):
     torch.cuda.manual_seed(args.seed)
     np.random.seed(args.seed)
 
-    parameter_estimator.load_trajectory(reference_env, 'trajectories/{}-actions.npy'.format(args.reference_env_id))
-    
+    parameter_estimator.load_trajectory(reference_env, f'trajectories/{args.reference_env_id}.npy')
     logging.info('Loaded Trajectories')
+
+    t = 0
+
+    state_dim = randomized_env.observation_space.shape[0]
+    action_dim = randomized_env.action_space.shape[0] 
+    max_action = 1.0
+
+    kwargs = {
+        "state_dim": state_dim,
+        "action_dim": action_dim,
+        "max_action": max_action,
+    }
+
+    policy = DDPG(**kwargs)
     evaluations = []
-    for iteration in range(250):
-        parameter_estimator.update_parameter_estimate(randomized_env)
-        if iteration % 5 == 0:
+
+    for iteration in range(args.num_iterations):
+        parameter_estimator.update_parameter_estimate(randomized_env, policy, reference_env)
+
+        if iteration % args.log_interval == 0:
             logging.info(
                 args.jobid,
                 args.estimator_class,
@@ -56,10 +72,11 @@ def run_experiment(args):
                 parameter_estimator.get_parameter_estimate(randomized_env)                
             )
         
+        # TODO: Should be held out, test data
         evaluations.append(parameter_estimator.get_parameter_estimate(randomized_env))
-        np.save('evaluations/{}-{}-{}-{}evals'.format(
+        np.save('evaluations/{}-{}-{}-{}-policy-evals'.format(
             args.estimator_class, args.reference_env_id, args.learned_reward, args.suffix), evaluations)
-        
+
     reshow_hyperparameters(args, paths={})
 
 if __name__ == '__main__':

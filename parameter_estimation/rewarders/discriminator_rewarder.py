@@ -6,13 +6,13 @@ from torch.autograd import Variable
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-class SASMLPDiscriminator(nn.Module):
+class SAMLPDiscriminator(nn.Module):
     """Discriminator class based on Feedforward Network
     Input is a state-action-state' transition
     Output is probability that it was from a reference trajectory
     """
     def __init__(self, state_dim, action_dim):
-        super(SASMLPDiscriminator, self).__init__()
+        super(SAMLPDiscriminator, self).__init__()
         
         self.l1 = nn.Linear((state_dim + action_dim + state_dim), 128)
         self.l2 = nn.Linear(128, 128)
@@ -31,7 +31,7 @@ class SASMLPDiscriminator(nn.Module):
 
 class DiscriminatorRewarder(object):
     def __init__(self, state_dim, action_dim, discriminator_batchsz, reward_scale, discriminator_lr=3e-3, add_pz=True):
-        self.discriminator = SASMLPDiscriminator(
+        self.discriminator = SAMLPDiscriminator(
             state_dim=state_dim,
             action_dim=action_dim).to(device)
 

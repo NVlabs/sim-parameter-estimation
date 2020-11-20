@@ -1,34 +1,32 @@
 import numpy as np
 
 
-def evaluate_actions(env, actions):
+def set_state(env, qp, qv):
+    env.set_state(qp, qv)
+
+def evaluate_actions(env, start_sim_state, actions):
     """Evaluates a given policy in a particular environment, given actions
     """
 
     states = []
     next_states = []
 
-    # TODO - Look at eval code
-    env.seed(1)
-    state = env.reset()
+    qp, qv = start_sim_state
+    set_state(env, qp, qv)
+    state = env._get_obs()
 
-    for action in actions:
-        action_expanded = np.repeat(action[:, np.newaxis], env.nenvs, axis=1).T 
-        next_state, r, d, _ = env.step(action_expanded)
+    for i, action in enumerate(actions):
+        next_state, r, d, _ = env.step(action)
         
         states.append(state)
         next_states.append(next_state)
 
         state = next_state
 
-    nagents = np.array(states).shape[1]
-    actions = np.expand_dims(actions, 1)
-    actions = np.repeat(actions, nagents, axis=1)
-
     trajectory = np.concatenate([
                     states,
                     actions,
                     next_states
                 ], axis=-1)
-
+    
     return np.transpose(trajectory, (1, 0, 2))

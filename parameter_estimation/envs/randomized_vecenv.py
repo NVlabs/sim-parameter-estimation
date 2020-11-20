@@ -1,3 +1,11 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
 import logging
 
 import gym
@@ -5,7 +13,7 @@ import numpy as np
 from multiprocessing import Process, Pipe
 from baselines.common.vec_env import VecEnv, CloudpickleWrapper
 
-from gym.wrappers import FlattenObservation
+from gym.wrappers import FlattenObservation, FlattenDictWrapper
 
 from parameter_estimation.envs.wrappers import RandomizedEnvWrapper
 
@@ -24,12 +32,13 @@ logger = logging.getLogger(__name__)
 def make_env(env_id, seed, rank):
     def _thunk():
         env = gym.make(env_id)
-        env = FlattenObservation(env)
-        # env = FlattenDictWrapper(env, ['achieved_goal', 'desired_goal'])
+        if env_id.find('Fetch') == -1:
+            env = FlattenObservation(env)
+        else:
+            env = FlattenDictWrapper(env, ['achieved_goal', 'desired_goal'])
         env = RandomizedEnvWrapper(env, seed + rank)
 
         env.seed(seed + rank)
-        obs_shape = env.observation_space.shape  # TODO: is this something we can remove
 
         return env
 
@@ -81,8 +90,9 @@ def worker(remote, parent_remote, env_fn_wrapper):
                 values = []
                 for dim in env.unwrapped.dimensions:
                     values.append(dim.current_value)
-
                 remote.send(values)
+            elif cmd == 'get_max_env_timesteps':
+                remote.send(env.spec.max_episode_steps)
             else:
                 raise NotImplementedError
     except KeyboardInterrupt:
@@ -118,6 +128,10 @@ class RandomizedSubprocVecEnv(VecEnv):
 
         self.remotes[0].send(('get_spaces', None))
         observation_space, action_space, randomization_space = self.remotes[0].recv()
+
+        self.remotes[0].send(('get_max_env_timesteps', None))
+        self.max_env_timesteps = self.remotes[0].recv()
+
         self.randomization_space = randomization_space
         self.viewer = None
         VecEnv.__init__(self, len(env_fns), observation_space, action_space)
@@ -141,12 +155,9 @@ class RandomizedSubprocVecEnv(VecEnv):
 
     def randomize(self, randomized_values):
         self._assert_not_closed()
-
-        logger.debug('[randomize] => SENDING')
         for remote, val in zip(self.remotes, randomized_values):
             remote.send(('randomize', val))
-        results = [remote.recv() for remote in self.remotes]  # TODO: why creating the array if you're not gonna use it
-        logger.debug('[randomize] => SENT')
+        results = [remote.recv() for remote in self.remotes]
         self.waiting = False
 
     def seed(self, seed):
@@ -154,7 +165,7 @@ class RandomizedSubprocVecEnv(VecEnv):
 
         for remote in self.remotes:
             remote.send(('seed', seed))
-        results = [remote.recv() for remote in self.remotes]  # TODO: why creating the array if you're not gonna use it
+        results = [remote.recv() for remote in self.remotes]
 
         self.waiting = False
 

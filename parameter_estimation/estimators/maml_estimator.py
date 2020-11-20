@@ -1,3 +1,13 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+
+
 import jax.numpy as np
 from jax.experimental import optimizers
 
@@ -38,12 +48,11 @@ class MAMLEstimator(BaseEstimator):
         self.nenvs = randomized_env.nenvs
 
         input_dim = randomized_env.action_space.shape[0] + randomized_env.observation_space.shape[0] * 2
-        print(input_dim)
         in_shape = (-1, input_dim)
 
-        self.net_init, self.net_apply = generate_network(self.randomization_dim)
+        self.net_init, self.net_apply = generate_network(self.randomization_dim, kwargs['hidden_size'])
 
-        self.opt_init, self.opt_update, self.get_params = optimizers.adam(step_size=1e-3)
+        self.opt_init, self.opt_update, self.get_params = optimizers.adam(step_size=kwargs['learning_rate'])
 
         rng = random.PRNGKey(0)
         self.out_shape, self.net_params = self.net_init(rng, in_shape)
@@ -52,9 +61,10 @@ class MAMLEstimator(BaseEstimator):
         self.i = 0
 
     def load_trajectory(self, reference_env, reference_action_fp):
-        self.reference_actions = np.load(reference_action_fp)
+        actions = np.load(reference_action_fp)
+        self.reference_actions = np.repeat(actions[:, np.newaxis], self.nenvs, axis=1)
         self.reference_trajectory = evaluate_actions(reference_env, self.reference_actions)
-        self.flattened_reference = np.squeeze(self.reference_trajectory)    
+        self.flattened_reference = np.squeeze(self.reference_trajectory)       
     
     def get_parameter_estimate(self, randomized_env):
         predictions_array = []
@@ -72,7 +82,7 @@ class MAMLEstimator(BaseEstimator):
 
         return predictions_array
     
-    def update_parameter_estimate(self, randomized_env):
+    def update_parameter_estimate(self, randomized_env, policy=None, reference_env=None):
         xtrain, ytrain, xval, yval = sample_tasks(randomized_env, self.reference_actions) 
         self.opt_state, l = self._step(xtrain, ytrain, xval, yval)
         

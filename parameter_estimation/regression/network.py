@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 class LinearRegressor(nn.Module):
     """Discriminator class based on Feedforward Network
@@ -12,4 +13,4 @@ class LinearRegressor(nn.Module):
 
     # Tuple of S-A-S'
     def forward(self, x):
-        return self.linear(x)
+        return F.sigmoid(self.linear(x))

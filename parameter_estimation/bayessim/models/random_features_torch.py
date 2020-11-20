@@ -5,9 +5,6 @@ import ghalton
 import torch
 
 
-from tensorflow.python.ops import math_ops
-
-
 class RFF:
     """
     Random Fourier Features, Vanilla or quasi-random using TensorFlow

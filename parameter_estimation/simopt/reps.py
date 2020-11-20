@@ -57,7 +57,7 @@ class REPS():
         # max-likelihood and then taken to the power (1/covariance_damping).
         if (self._covariance_damping is not None
                 and self._covariance_damping > 0.0):
-            mult = np.trace(np.dot(sp.linalg.inv(self.current_cov),
+            mult = np.trace(np.dot(sp.linalg.pinv(self.current_cov),
                                    cov_new)) / len(self.current_cov)
             mult = np.power(mult, 1 / self._covariance_damping)
             cov_new = mult * self.current_cov
