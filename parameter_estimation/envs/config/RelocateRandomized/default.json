@@ -1,0 +1,17 @@
+{
+  "env": "RelocateDefault-v0",
+  "dimensions": [
+    {
+      "name": "mass",
+      "default": 0.179594,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "radius",
+      "default": 0.035,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    }
+  ]
+}

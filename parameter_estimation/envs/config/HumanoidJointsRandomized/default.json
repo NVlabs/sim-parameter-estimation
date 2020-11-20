@@ -1,0 +1,388 @@
+{
+  "env": "HumanoidRandomized-v0",
+  "dimensions": [
+    {
+      "name": "abdomen_y_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_z_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_x_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_x_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_z_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_y_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_knee_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_x_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_z_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_y_damping",
+      "type": "damping",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_knee_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder1_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder2_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_elbow_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder1_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder2_damping",
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name":"left_elbow_damping", 
+      "type": "damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0 
+    },
+
+
+    
+    {
+      "name": "abdomen_y_stiffness",
+      "type": "stiffness",
+      "default": 20,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_z_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_x_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_x_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_z_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_y_stiffness",
+      "type": "stiffness",
+      "default": 20,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_knee_stiffness",
+      "type": "stiffness",
+      "default": 0.001,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_x_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_z_stiffness",
+      "type": "stiffness",
+      "default": 10,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_y_stiffness",
+      "type": "stiffness",
+      "default": 20,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_knee_stiffness",
+      "type": "stiffness",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder1_stiffness",
+      "type": "stiffness",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder2_stiffness",
+      "type": "stiffness",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_elbow_stiffness",
+      "type": "stiffness",
+      "default": 0.001,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder1_stiffness",
+      "type": "stiffness",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder2_stiffness",
+      "type": "stiffness",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name":"left_elbow_stiffness", 
+      "type": "stiffness",
+      "default": 0.001,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0 
+    },
+
+
+
+    {
+      "name": "abdomen_y_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_z_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "abdomen_x_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_x_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_z_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_hip_y_gear",
+      "type": "gear",
+      "default": 300,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_knee_gear",
+      "type": "gear",
+      "default": 200,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_x_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_z_gear",
+      "type": "gear",
+      "default": 100,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_hip_y_gear",
+      "type": "gear",
+      "default": 300,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_knee_gear",
+      "type": "gear",
+      "default": 200,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder1_gear",
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_shoulder2_gear",
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "right_elbow_gear",
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder1_gear",
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "left_shoulder2_gear",
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name":"left_elbow_gear", 
+      "type": "gear",
+      "default": 25,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0 
+    }
+
+  ],
+  "joints" : [
+    "abdomen_y",
+    "abdomen_z",
+    "abdomen_x",
+    "right_hip_x",
+    "right_hip_z",
+    "right_hip_y",
+    "right_knee",
+    "left_hip_x",
+    "left_hip_z",
+    "left_hip_y",
+    "left_knee",
+    "right_shoulder1",
+    "right_shoulder2",
+    "right_elbow",
+    "left_shoulder1",
+    "left_shoulder2",
+    "left_elbow"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "env": "RelocateDefault-v0",
+  "dimensions": [
+    {
+      "name": "frame_mass",
+      "default": 7.85398,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "door_mass",
+      "default": 2.43455,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "latch_mass",
+      "default": 3.53743,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "door_fl",
+      "default": 2,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "latch_fl",
+      "default": 5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "door_damping",
+      "default": 1,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    },
+    {
+      "name": "latch_damping",
+      "default": 1.5,
+      "multiplier_min": 1.0,
+      "multiplier_max": 1.0
+    }
+  ]
+}

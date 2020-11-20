@@ -1,0 +1,92 @@
+<mujocoinclude>
+
+    <option timestep="0.002" iterations="200" noslip_iterations="200"/>
+    <!-- <option iterations='20' noslip_iterations='20'/> -->
+    <!--<size njmax="500" nconmax="100" nstack="600000" nuser_body="9" nuser_jnt="1" nuser_site="1" -->
+    <!--    nuser_tendon="1" nuser_actuator="16" nuser_sensor="1" /> -->
+    <size njmax="500" nconmax="100" nstack="600000" />
+    <default>
+        <!-- <joint limited='true' damping='1' armature='0' axis='0 0 1' type='hinge'/> -->
+        <!-- <geom contype='1' conaffinity='1' condim='1' rgba='0.8 0.6 .4 1'
+            margin="0.001" solref=".02 1" solimp=".8 .8 .01" material="geom"/> -->
+        <!-- <motor ctrlrange='-1.0 1.0' ctrllimited='true'/> -->
+
+        <joint limited="true" margin="0.001" armature="0.1" damping="0.1" frictionloss="0.1" />
+        <geom friction="1 0.5 0.01" margin="0.0005" />
+        <site size="0.005 0 0" rgba="0.4 0.9 0.4 1" />
+        <!-- <tendon limited="true" /> -->
+        <general ctrllimited="true" ctrlrange="-1 1"
+            user="0 1 0.03 0.0939711 0.513477 0.0358776 1.23598 8.40409 0.485031 6.04244 1.02187 0.175297 0.121642 0 0 0" />
+
+        <!-- <default class='collision'>
+            <geom contype='0' conaffinity='0' type='mesh' />
+        </default> -->
+        <!-- <default class='visual'>
+            <geom contype='1' conaffinity='1' type='mesh' euler='1.57079 0.0 0.0'/>
+        </default> -->
+        <default class='visual'>
+            <geom type='mesh' euler='1.57079 0.0 0.0'/>
+        </default>
+    </default>
+
+    <visual>
+        <global offwidth="3024" offheight="1680" />
+        <quality shadowsize="4096" offsamples="8" />
+        <map force="0.1" fogend="5" />
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" width="128" height="128" rgb1=".4 .6 .8"
+            rgb2="0 0 0"/>
+        <texture name="texgeom" type="cube" builtin="flat" mark="cross" width="127" height="1278"
+            rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2"
+            width="512" height="512"/>
+
+        <material name='MatPlane' reflectance='0.3' texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <material name='geom' texture="texgeom" texuniform="true"/>
+
+        <mesh name="viz_finger" file="franka/finger.stl"/>
+        <mesh name="viz_hand"   file="franka/hand.stl"/>
+        <mesh name="viz_link0"  file="franka/link0.stl"/>
+        <mesh name="viz_link1"  file="franka/link1.stl"/>
+        <mesh name="viz_link2"  file="franka/link2.stl"/>
+        <mesh name="viz_link3"  file="franka/link3.stl"/>
+        <mesh name="viz_link4"  file="franka/link4.stl"/>
+        <mesh name="viz_link5"  file="franka/link5.stl"/>
+        <mesh name="viz_link6"  file="franka/link6.stl"/>
+        <mesh name="viz_link7"  file="franka/link7.stl"/>
+    </asset>
+
+    <equality>
+        <!-- Links default hand grippers together -->
+        <joint name='finger2' joint1='finger1' joint2='finger2' polycoef="0 -1 0 0 0" />
+    </equality>
+    
+    <equality>
+        <weld body1="franka:mocap" body2="hand" solimp="0.9 0.95 0.001" solref="0.02 1"></weld>
+    </equality>
+    
+    <actuator>
+        <!--
+        <motor name='joint1' gear='127' joint='joint1' />
+        <motor name='joint2' gear='127' joint='joint2' />
+        <motor name='joint3' gear='127' joint='joint3' />
+        <motor name='joint4' gear='127' joint='joint4' />
+        <motor name='joint5' gear='67' joint='joint5' />
+        <motor name='joint6' gear='12' joint='joint6' />
+        <motor name='joint7' gear='12' joint='joint7' />
+        <motor name='finger' gear='102' joint='finger1' />
+        -->
+        <velocity name='joint1' ctrlrange='-2 2' kv='10'  joint='joint1' />
+        <velocity name='joint2' ctrlrange='-2 2' kv='10'  joint='joint2' />
+        <velocity name='joint3' ctrlrange='-2 2' kv='10'  joint='joint3' />
+        <velocity name='joint4' ctrlrange='-2 2' kv='10'  joint='joint4' />
+        <velocity name='joint5' ctrlrange='-2 2' kv='10' joint='joint5' />
+        <velocity name='joint6' ctrlrange='-2 2' kv='10' joint='joint6' />
+        <velocity name='joint7' ctrlrange='-2 2' kv='10' joint='joint7' />
+        <velocity name='finger' ctrlrange='-2 2' kv='10' joint='finger2' />
+
+    </actuator>
+
+</mujocoinclude>

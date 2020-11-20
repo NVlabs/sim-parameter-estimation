@@ -1,0 +1,52 @@
+<mujocoinclude>
+
+
+
+    <!-- <joint name='drawer_top' type='slide' axis='1 0 0' range='0 1' frictionloss='0.001'/>
+        <body name='drawer_top' pos='0.0515 0 0.3172'>
+            <inertial pos='0 0 0' mass='0.0001' diaginertia='0.0001 0.0001 0.0001'/>
+            <geom mesh='drawer' type='mesh'/>
+            <geom mesh='drawer_handle' type='mesh'/>
+            <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/>
+        </body> -->
+
+    <body name='sektion_frame' pos='0.9 0.0 0.4' euler='0 0 3.1415'>
+        <geom mesh='sektion_frame' type='mesh' contype='1' conaffinity='0'/>
+
+            <body name='drawer_top' pos='0.0515 0 0.3172'>
+                <joint name='drawer_top' type='slide' axis='1 0 0' range='-0.01 0.4' frictionloss='0.1' armature='0.01'/>
+                <geom mesh='drawer' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/>
+            </body>
+
+            <body name='drawer_bottom' pos='0.0515 0 0.18795'>
+                <joint name='drawer_bottom' type='slide' axis='1 0 0' range='-0.01 0.5' frictionloss='1'/>
+                <geom mesh='drawer' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+            <body name='door_right' pos='0.3162 0.3757 -0.12973'>
+                <joint name='door_right' type='hinge' axis='0 0 1' range='-0.01 1.5'/>
+                <geom mesh='door_right'  pos='0  -0.184706  0' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <!-- <geom mesh='drawer_handle' type='mesh' mass='0.001' contype='1' conaffinity='0'/> -->
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+            <body name='door_left' pos='0.3162 -0.3757 -0.12973'>
+                <joint name='door_left' type='hinge' axis='0 0 1' range='-1.5 0.0'/>
+                <geom mesh='door_left'  pos='0  0.184706  0' type='mesh' mass='0.1' contype='1' conaffinity='0'/>
+                <geom mesh='door_left_nob' pos='0  0.184706  0' type='mesh' mass='0.001' contype='1' conaffinity='0'/>
+                <!-- <geom mesh='drawer_handle' type='mesh' mass='0.001'
+                                    pos='0 0 -0.3172' euler='0 0 0' contype='1' conaffinity='0'/> -->
+                <!-- <site name='lower_Handle' pos='0.3 0.0 0.01' size='0.04' rgba='0 1 0 0.125'/> -->
+                <!-- <site name='Handle' pos='0 0.35 0.18' size='0.04' rgba='0 1 0 0.125'/> -->
+            </body>
+
+
+    </body>
+
+</mujocoinclude>
