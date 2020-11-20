@@ -545,3 +545,23 @@ register(
         )
     }
 )
+
+register(
+    id='FrankaDefault-v0',
+    entry_point='parameter_estimation.envs.franka:FrankaRandomizedEnv',
+    max_episode_steps=250,
+    kwargs={
+        'config': 'parameter_estimation/envs/config/FrankaRandomized/default.json',
+        'xml_name': 'franka-cabinet.xml'
+    }
+)
+
+register(
+    id='FrankaRandomized-v0',
+    entry_point='parameter_estimation.envs.franka:FrankaRandomizedEnv',
+    max_episode_steps=250,
+    kwargs={
+        'config': 'parameter_estimation/envs/config/FrankaRandomized/fulldr.json',
+        'xml_name': 'franka-cabinet.xml'
+    }
+)

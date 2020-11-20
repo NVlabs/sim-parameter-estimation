@@ -1,3 +1,12 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+
 import gym
 import numpy as np
 import logging
@@ -9,6 +18,8 @@ from parameter_estimation.rewarders import DiscriminatorRewarder, StateDifferenc
 
 from parameter_estimation.adr import SVPG
 from parameter_estimation.estimators import BaseEstimator
+
+from policy.train import run_training_episode
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger = logging.getLogger(__name__)
@@ -63,7 +74,7 @@ class ADREstimator(BaseEstimator):
             )
 
         else:
-            self.rewarder = StateDifferenceRewarder(weights=None)
+            self.rewarder = StateDifferenceRewarder(weights=-1)
 
         self.learned_reward = kwargs['learned_reward']
 
@@ -82,14 +93,18 @@ class ADREstimator(BaseEstimator):
 
 
     def load_trajectory(self, reference_env, reference_action_fp):
-        self.reference_actions = np.load(reference_action_fp)
+        actions = np.load(reference_action_fp)
+        self.reference_actions = np.repeat(actions[:, np.newaxis], reference_env.nenvs, axis=1)
         self.reference_trajectory = evaluate_actions(reference_env, self.reference_actions)
-        self.flattened_reference = np.squeeze(self.reference_trajectory)
+        self.flattened_reference = np.squeeze(self.reference_trajectory)    
+
+    def get_parameter_values(self):
+        return self.svpg.last_states
 
     def get_parameter_estimate(self, randomized_env):
         return np.mean(self.svpg.last_states, axis=0)
 
-    def update_parameter_estimate(self, randomized_env):
+    def update_parameter_estimate(self, randomized_env, policy=None, reference_env=None):
         """Select an action based on SVPG policy, where an action is the delta in each dimension.
         Update the counts and statistics after training agent,
         rolling out policies, and calculating simulator reward.
@@ -111,7 +126,6 @@ class ADREstimator(BaseEstimator):
 
         # Create placeholders for trajectories
         randomized_trajectories = [[] for _ in range(self.nagents)]
-        reference_trajectories = [[] for _ in range(self.nagents)]
 
         # Create placeholder for rewards
         rewards = np.zeros(simulation_instances.shape[:2])
@@ -125,27 +139,29 @@ class ADREstimator(BaseEstimator):
             
             # TODO: Double check shape here
             randomized_env.randomize(randomized_values=simulation_instances[t])
-            randomized_trajectory = evaluate_actions(randomized_env, self.reference_actions)
+            if policy is not None:
+                randomized_trajectory, randomized_actions = run_training_episode(randomized_env, policy, self.agent_timesteps)
+                self.reference_trajectory = evaluate_actions(reference_env, np.transpose(randomized_actions, (1, 0, 2)))
+            else:
+                randomized_trajectory = evaluate_actions(randomized_env, self.reference_actions)
 
             for i in range(self.nagents):
                 agent_timesteps_current_iteration += len(randomized_trajectory[i])
+                self.agent_timesteps += len(randomized_trajectory[i])
                 randomized_trajectories[i].append(randomized_trajectory[i])
-                if self.learned_reward:
-                    # TODO: fix api
-                    simulator_reward = self.rewarder.calculate_rewards(randomized_trajectories[i][t])
-                else:
-                    simulator_reward = self.rewarder(randomized_trajectories[i][t], self.reference_trajectory)
+                simulator_reward = self.rewarder(randomized_trajectories[i][t][np.newaxis, :], self.reference_trajectory[0][np.newaxis, :])
                 rewards[i][t] = simulator_reward
             
             if self.learned_reward:
                 # flatten and combine all randomized and reference trajectories for discriminator
+                flattened_reference = [self.reference_trajectory[i] for i in range(self.nagents)]
+                flattened_reference = np.concatenate(flattened_reference)
                 flattened_randomized = [randomized_trajectories[i][t] for i in range(self.nagents)]
                 flattened_randomized = np.concatenate(flattened_randomized)
 
                 # Train discriminator based on state action pairs for agent env. steps
-                # TODO: Train more?
                 self.rewarder.train_discriminator(
-                    self.flattened_reference, 
+                    flattened_reference, 
                     flattened_randomized,
                     iterations=150
                 )

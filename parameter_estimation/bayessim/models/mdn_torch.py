@@ -1,8 +1,8 @@
 import numpy as np  # basic math and random numbers
 import torch  # package for building functions with learnable parameters
 import torch.nn as nn  # prebuilt functions specific to neural networks
-from src.models.random_features_torch import RFF
-import src.utils.pdf as pdf
+from parameter_estimation.bayessim.models.random_features_torch import RFF
+import parameter_estimation.bayessim.utils.pdf as pdf
 from torch.distributions.multivariate_normal import MultivariateNormal
 from torch.distributions.normal import Normal
 from torch.distributions import Independent
@@ -93,7 +93,7 @@ class MDNNTorch(nn.Module):
 
         batch_size = len(x) if batch_size is None else batch_size
 
-        print("Training mdn network on {} datapoints".format(len(x_data)))
+        # print("Training mdn network on {} datapoints".format(len(x_data)))
 
         def batch_generator():
             while True:
@@ -103,7 +103,7 @@ class MDNNTorch(nn.Module):
         batch_gen_iter = batch_generator()
 
         lossHistory = []
-        for epoch in tqdm(range(nepoch)):
+        for epoch in range(nepoch):
             x_batch, y_batch = next(batch_gen_iter)
             optimizer.zero_grad()
             pi, mu, L, L_diagonal = self(x_batch)
@@ -111,15 +111,15 @@ class MDNNTorch(nn.Module):
             loss.backward()
             optimizer.step()
 
-            if epoch == 0:
-                print("Initial Loss is: {}".format(loss.item()))
+            # if epoch == 0:
+            #     print("Initial Loss is: {}".format(loss.item()))
 
-            elif epoch % 100 == 0 and verbose:
-                if epoch != 0:
-                    print(" Iteration:", epoch, "Loss", loss.item())
+            # elif epoch % 100 == 0 and verbose:
+            #     if epoch != 0:
+            #         print(" Iteration:", epoch, "Loss", loss.item())
 
             lossHistory.append(loss.item())
-        print("Training Finished, final loss is {}".format(loss.item()))
+        # print("Training Finished, final loss is {}".format(loss.item()))
         return self, lossHistory
 
     def predict_mog(self, x):
@@ -260,7 +260,7 @@ class MDLSTMTorch(MDNNTorch):
 
         batch_size = len(x) if batch_size is None else batch_size
 
-        print("Training mdn network on {} datapoints".format(len(x_data)))
+        # print("Training mdn network on {} datapoints".format(len(x_data)))
 
         def batch_generator():
             while True:
@@ -270,7 +270,7 @@ class MDLSTMTorch(MDNNTorch):
         batch_gen_iter = batch_generator()
 
         lossHistory = []
-        for epoch in tqdm(range(nepoch)):
+        for epoch in range(nepoch):
             x_batch, y_batch = next(batch_gen_iter)
             optimizer.zero_grad()
             pi, mu, L, L_diagonal = self(x_batch)
@@ -278,15 +278,15 @@ class MDLSTMTorch(MDNNTorch):
             loss.backward()
             optimizer.step()
 
-            if epoch == 0:
-                print("Initial Loss is: {}".format(loss.item()))
+            # if epoch == 0:
+            #     print("Initial Loss is: {}".format(loss.item()))
 
-            elif epoch % 100 == 0 and verbose:
-                if epoch != 0:
-                    print(" Iteration:", epoch, "Loss", loss.item())
+            # elif epoch % 100 == 0 and verbose:
+            #     if epoch != 0:
+            #         print(" Iteration:", epoch, "Loss", loss.item())
 
             lossHistory.append(loss.item())
-        print("Training Finished, final loss is {}".format(loss.item()))
+        # print("Training Finished, final loss is {}".format(loss.item()))
         return self, lossHistory
 
     def predict_mog(self, x):
@@ -422,7 +422,7 @@ class RDNN(MDNNTorch):
 
         batch_size = len(x) if batch_size is None else batch_size
 
-        print("Training mdn network on {} datapoints".format(len(x_data)))
+        # print("Training mdn network on {} datapoints".format(len(x_data)))
 
         def batch_generator():
             while True:
@@ -432,7 +432,7 @@ class RDNN(MDNNTorch):
         batch_gen_iter = batch_generator()
 
         lossHistory = []
-        for epoch in tqdm(range(nepoch)):
+        for epoch in range(nepoch):
             x_batch, y_batch = next(batch_gen_iter)
             optimizer.zero_grad()
             sigma, mu = self(x_batch)
@@ -440,15 +440,15 @@ class RDNN(MDNNTorch):
             loss.backward()
             optimizer.step()
 
-            if epoch == 0:
-                print("Initial Loss is: {}".format(loss.item()))
+            # if epoch == 0:
+            #     print("Initial Loss is: {}".format(loss.item()))
 
-            elif epoch % 100 == 0 and verbose:
-                if epoch != 0:
-                    print(" Iteration:", epoch, "Loss", loss.item())
+            # elif epoch % 100 == 0 and verbose:
+            #     if epoch != 0:
+            #         print(" Iteration:", epoch, "Loss", loss.item())
 
             lossHistory.append(loss.item())
-        print("Training Finished, final loss is {}".format(loss.item()))
+        # print("Training Finished, final loss is {}".format(loss.item()))
         return self, lossHistory
 
     def predict_mog(self, x):

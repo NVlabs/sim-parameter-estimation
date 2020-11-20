@@ -4,3 +4,4 @@ from .simopt_estimator import SimOptEstimator
 from .bayesianopt_estimator import BayesianOptEstimator
 from .linearreg_estimator import RegressionEstimator
 from .maml_estimator import MAMLEstimator
+from .bayessim_estimator import BayesSimEstimator

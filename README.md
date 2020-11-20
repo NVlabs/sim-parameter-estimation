@@ -19,3 +19,17 @@ Our release is **in progress**, and you can track it below:
 - [x] Plotting Code
 - [x] MuJoCo Environments
 - [ ] IsaacGym Environments
+
+## Reference
+
+```
+
+@InProceedings{mehta2020calibrating,
+  title={A User's Guide to Calibrating Robotics Simulators},
+  author={Mehta, Bhairav and Handa, Ankur and Fox, Dieter and Ramos, Fabio},
+  booktitle={Proceedings of the Conference on Robot Learning},
+  year={2020},
+  url={https://arxiv.org/abs/2011.08985},
+}
+
+```

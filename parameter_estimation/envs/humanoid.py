@@ -1,3 +1,11 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
 import os
 
 import numpy as np
@@ -43,7 +51,7 @@ class HumanoidRandomizedEnv(RandomizedLocomotionEnv):
         quad_impact_cost = min(quad_impact_cost, 10)
         reward = lin_vel_cost - quad_ctrl_cost - quad_impact_cost + alive_bonus
         qpos = self.sim.data.qpos
-        done = bool((qpos[2] < 1.0) or (qpos[2] > 2.0))
+        done = False # bool((qpos[2] < 1.0) or (qpos[2] > 2.0))
         return self._get_obs(), reward, done, dict(reward_linvel=lin_vel_cost, reward_quadctrl=-quad_ctrl_cost,
                                                    reward_alive=alive_bonus, reward_impact=-quad_impact_cost)
 
