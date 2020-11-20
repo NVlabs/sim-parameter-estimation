@@ -27,7 +27,7 @@ Our release is **in progress**, and you can track it below:
 @InProceedings{mehta2020calibrating,
   title={A User's Guide to Calibrating Robotics Simulators},
   author={Mehta, Bhairav and Handa, Ankur and Fox, Dieter and Ramos, Fabio},
-  booktitle={Proceedings of the Conference on Robot Learning},
+  booktitle={Proceedings of the Conference on Robot Learning (CoRL)},
   year={2020},
   url={https://arxiv.org/abs/2011.08985},
 }
